@@ -37,7 +37,9 @@ scene("game", () => {
 
 scene("over", () => {
     add([
-        text("Game Over!")
+        text("Game Over!"),
+        pos(center()),
+        anchor("center"),
     ])
 })
 
