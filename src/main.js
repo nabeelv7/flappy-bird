@@ -1,7 +1,7 @@
 import kaplay from "kaplay";
 import "kaplay/global";
 import loadAllSprites from "./sprites";
-import { spawnAPipe } from "./platform";
+import { spawnPipes } from "./platform";
 
 kaplay();
 
@@ -17,7 +17,9 @@ scene("game", () => {
         scale(5)
     ])
 
-    spawnAPipe()
+
+    spawnPipes();
+    spawnPipes({ invert: true });
 
     // set Gravity
     setGravity(1200)
