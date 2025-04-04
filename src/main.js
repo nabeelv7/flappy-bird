@@ -9,6 +9,8 @@ loadRoot("./"); // A good idea for Itch.io publishing later
 loadAllSprites();
 
 scene("game", () => {
+    let score = 0;
+
     const bird = add([
         sprite("bird", { frame: 0, anim: "flight" }),
         pos(100, 100),
@@ -17,6 +19,12 @@ scene("game", () => {
         scale(5)
     ])
 
+    let scoreText = add([
+        text(score, { size: 50 }),
+        pos(width() / 2, height() - 100),
+        anchor("botleft"),
+        z(10)
+    ]);
 
     spawnPipes();
 
@@ -34,6 +42,10 @@ scene("game", () => {
     })
 
     bird.onCollide("pipe", () => go("over"))
+    bird.onCollide("score-box", () => {
+        score++;
+        scoreText.text = score;
+    })
 })
 
 scene("over", () => {
