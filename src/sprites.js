@@ -8,4 +8,7 @@ export default function loadAllSprites() {
             flight: { from: 0, to: 3, loop: true }
         }
     });
+
+    loadSprite("pipe", "sprites/pipe.png")
+    loadSprite("pipeI", "sprites/pipe-inverted.png")
 }

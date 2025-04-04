@@ -19,7 +19,6 @@ scene("game", () => {
 
 
     spawnPipes();
-    spawnPipes({ invert: true });
 
     // set Gravity
     setGravity(1200)
