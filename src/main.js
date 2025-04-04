@@ -50,10 +50,18 @@ scene("game", () => {
 
 scene("over", () => {
     add([
-        text("Game Over!"),
-        pos(center()),
+        text("Game Over!", { size: 70 }),
+        pos(width() / 2, height() / 2 - 50),
         anchor("center"),
     ])
+
+    add([
+        text("press space to restart"),
+        pos(width() / 2, height() / 2 + 50),
+        anchor("center"),
+    ])
+
+    onKeyPress("space", () => go("game"));
 })
 
 go("game");
