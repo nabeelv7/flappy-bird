@@ -1,11 +1,11 @@
 import "kaplay/global";
 
 export function spawnPipes() {
-    let random = rand(230, 270)
+    let random = rand(100, 170)
 
     add([
         rect(28, height()),
-        pos(width() + 100, height()),
+        pos(width() + 170, height()),
         anchor("botleft"),
         move(LEFT, 300),
         area(),
@@ -19,7 +19,7 @@ export function spawnPipes() {
         anchor("botleft"),
         move(LEFT, 300),
         area(),
-        scale(5),
+        scale(7),
         "pipe",
     ])
 
@@ -28,9 +28,9 @@ export function spawnPipes() {
         pos(width(), 0 - random),
         move(LEFT, 300),
         area(),
-        scale(5),
+        scale(7),
         "pipe",
     ])
 
-    wait(rand(0.9, 1.4), () => spawnPipes())
+    wait(rand(1, 1.6), () => spawnPipes())
 }

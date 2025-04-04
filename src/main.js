@@ -3,7 +3,13 @@ import "kaplay/global";
 import loadAllSprites from "./sprites";
 import { spawnPipes } from "./platform";
 
-kaplay();
+kaplay({
+    height: 1800,
+    width: 900,
+    letterbox: true,
+    background: [0, 0, 0],
+    font: "sans-serif"
+});
 
 loadRoot("./"); // A good idea for Itch.io publishing later
 loadAllSprites();
@@ -16,11 +22,11 @@ scene("game", () => {
         pos(100, 100),
         area(),
         body(),
-        scale(5)
+        scale(7)
     ])
 
     let scoreText = add([
-        text(score, { size: 50 }),
+        text(score, { size: 100 }),
         pos(width() / 2, height() - 100),
         anchor("botleft"),
         z(10)
@@ -31,9 +37,11 @@ scene("game", () => {
     // set Gravity
     setGravity(1200)
 
-    onKeyPress("space", () => {
-        bird.jump();
-    })
+    if (isTouchscreen()) {
+        onClick(() => bird.jump());
+    } else {
+        onKeyPress("space", () => bird.jump())
+    }
 
     loop(1, () => {
         if (bird.pos.y > height()) {
@@ -55,13 +63,21 @@ scene("over", () => {
         anchor("center"),
     ])
 
-    add([
-        text("press space to restart"),
-        pos(width() / 2, height() / 2 + 50),
-        anchor("center"),
-    ])
-
-    onKeyPress("space", () => go("game"));
+    if (isTouchscreen()) {
+        onClick(() => go("game"));
+        add([
+            text("click to restart"),
+            pos(width() / 2, height() / 2 + 50),
+            anchor("center"),
+        ])
+    } else {
+        onKeyPress("space", () => go("game"));
+        add([
+            text("press space to restart"),
+            pos(width() / 2, height() / 2 + 50),
+            anchor("center"),
+        ])
+    }
 })
 
 go("game");
