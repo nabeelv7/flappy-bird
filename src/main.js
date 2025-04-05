@@ -14,21 +14,17 @@ kaplay({
 
 loadFont("Bungee", "fonts/Bungee.ttf")
 loadMusic("bg-music", "sounds/game-music.mp3")
-loadSound("beep", "sounds/beep.mp3")
 
 loadRoot("./"); // A good idea for Itch.io publishing later
 loadAllSprites();
 
-play("bg-music", {
-    loop: true
-})
-
 let score = 0;
-let highscore = localStorage.getItem("highscore") || 0; 
+let highscore = localStorage.getItem("highscore") || 0;
 
+let musicPlaying = false;
 scene("start", () => {
     moveBG();
-    
+
     const bird = add([
         sprite("bird", { frame: 0, anim: "flight" }),
         pos(center()),
@@ -52,10 +48,39 @@ scene("start", () => {
     ]);
 
 
+    // Unlock audio playback on first user interaction
     if (isTouchscreen()) {
-        onClick(() => go("game"));
+        onClick(() => {
+            // Start audio context after user click, but only if music is not playing
+            if (!musicPlaying) {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume(); // Resume AudioContext to allow autoplay
+                }
+
+                musicPlaying = true; // Set flag to true to prevent starting the music again
+                go("game");
+                play("bg-music", { loop: true }); // Start music
+            } else {
+                go("game");
+            }
+        });
     } else {
-        onKeyPress("space", () => go("game"));
+        onKeyPress("space", () => {
+            // Start audio context after key press, but only if music is not playing
+            if (!musicPlaying) {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume(); // Resume AudioContext to allow autoplay
+                }
+
+                musicPlaying = true; // Set flag to true to prevent starting the music again
+                go("game");
+                play("bg-music", { loop: true }); // Start music
+            } else {
+                go("game");
+            }
+        });
     }
 })
 
@@ -101,7 +126,6 @@ scene("game", () => {
 
     bird.onCollide("pipe", () => go("start"))
     bird.onCollide("score-box", () => {
-        play("beep");
         score++;
         if (score > highscore) {
             localStorage.setItem("highscore", score);
