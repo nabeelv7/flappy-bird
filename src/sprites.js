@@ -11,4 +11,5 @@ export default function loadAllSprites() {
 
     loadSprite("pipe", "sprites/pipe.png")
     loadSprite("pipeI", "sprites/pipe-inverted.png")
+    loadSprite("bg", "sprites/bg.png")
 }
