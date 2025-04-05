@@ -49,16 +49,16 @@ scene("start", () => {
 
 
     add([
-      text("Made by Nabeel", {size: 40}),
-      pos(width() / 2, height() - 110),
-      anchor("center"),
-      z(10),  
+        text("Made by Nabeel", { size: 40 }),
+        pos(width() / 2, height() - 110),
+        anchor("center"),
+        z(10),
     ])
 
     // Unlock audio playback on first user interaction
     if (isTouchscreen()) {
         onClick(() => {
-            // Start audio context after user click, but only if music is not playing
+            // Start audio context after user click/tap, but only if music is not playing
             if (!musicPlaying) {
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 if (audioContext.state === 'suspended') {
@@ -89,7 +89,7 @@ scene("start", () => {
             }
         });
     }
-})
+});
 
 scene("game", () => {
     score = 0;
