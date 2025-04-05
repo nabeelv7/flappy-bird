@@ -14,15 +14,33 @@ kaplay({
 loadRoot("./"); // A good idea for Itch.io publishing later
 loadAllSprites();
 
-scene("game", () => {
-    let score = 0;
+let score = 0;
 
+scene("start", () => {
     const bird = add([
         sprite("bird", { frame: 0, anim: "flight" }),
-        pos(100, 100),
+        pos(center()),
+        anchor("center"),
+        area(),
+        scale(7)
+    ])
+
+    if (isTouchscreen()) {
+        onClick(() => go("game"));
+    } else {
+        onKeyPress("space", () => go("game"));
+    }
+})
+
+scene("game", () => {
+    const bird = add([
+        sprite("bird", { frame: 0, anim: "flight" }),
+        pos(center()),
+        anchor("center"),
         area(),
         body(),
-        scale(7)
+        scale(7),
+        rotate(-20)
     ])
 
     let scoreText = add([
@@ -32,7 +50,9 @@ scene("game", () => {
         z(10)
     ]);
 
-    spawnPipes();
+    setTimeout(() => {
+        spawnPipes();
+    }, 2000);
 
     // set Gravity
     setGravity(1200)
@@ -45,39 +65,15 @@ scene("game", () => {
 
     loop(1, () => {
         if (bird.pos.y > height()) {
-            go("over");
+            go("start");
         }
     })
 
-    bird.onCollide("pipe", () => go("over"))
+    bird.onCollide("pipe", () => go("start"))
     bird.onCollide("score-box", () => {
         score++;
         scoreText.text = score;
     })
 })
 
-scene("over", () => {
-    add([
-        text("Game Over!", { size: 70 }),
-        pos(width() / 2, height() / 2 - 50),
-        anchor("center"),
-    ])
-
-    if (isTouchscreen()) {
-        onClick(() => go("game"));
-        add([
-            text("click to restart"),
-            pos(width() / 2, height() / 2 + 50),
-            anchor("center"),
-        ])
-    } else {
-        onKeyPress("space", () => go("game"));
-        add([
-            text("press space to restart"),
-            pos(width() / 2, height() / 2 + 50),
-            anchor("center"),
-        ])
-    }
-})
-
-go("game");
+go("start");

@@ -1,7 +1,7 @@
 import "kaplay/global";
 
 export function spawnPipes() {
-    let random = rand(100, 170)
+    let random = rand(0, 100);
 
     add([
         rect(28, height()),
@@ -15,7 +15,7 @@ export function spawnPipes() {
     
     add([
         sprite("pipe"),
-        pos(width(), height() + random),
+        pos(width(), height() + 100 + random),
         anchor("botleft"),
         move(LEFT, 300),
         area(),
@@ -25,12 +25,12 @@ export function spawnPipes() {
 
     add([
         sprite("pipeI"),
-        pos(width(), 0 - random),
+        pos(width(), -100 + random),
         move(LEFT, 300),
         area(),
         scale(7),
         "pipe",
     ])
 
-    wait(rand(1, 1.6), () => spawnPipes())
+    wait(rand(1.3, 2), () => spawnPipes())
 }
