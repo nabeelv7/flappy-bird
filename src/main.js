@@ -48,6 +48,13 @@ scene("start", () => {
     ]);
 
 
+    add([
+      text("Made by Nabeel", {size: 40}),
+      pos(width() / 2, height() - 110),
+      anchor("center"),
+      z(10),  
+    ])
+
     // Unlock audio playback on first user interaction
     if (isTouchscreen()) {
         onClick(() => {
