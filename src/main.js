@@ -3,16 +3,25 @@ import "kaplay/global";
 import loadAllSprites from "./sprites";
 import { moveBG, spawnPipes } from "./platform";
 
+
 kaplay({
     height: 1800,
     width: 900,
     letterbox: true,
     background: [0, 0, 0],
-    font: "sans-serif"
+    font: "Bungee"
 });
+
+loadFont("Bungee", "fonts/Bungee.ttf")
+loadMusic("bg-music", "sounds/game-music.mp3")
+loadSound("beep", "sounds/beep.mp3")
 
 loadRoot("./"); // A good idea for Itch.io publishing later
 loadAllSprites();
+
+play("bg-music", {
+    loop: true
+})
 
 let score = 0;
 let highscore = localStorage.getItem("highscore") || 0; 
@@ -92,6 +101,7 @@ scene("game", () => {
 
     bird.onCollide("pipe", () => go("start"))
     bird.onCollide("score-box", () => {
+        play("beep");
         score++;
         if (score > highscore) {
             localStorage.setItem("highscore", score);
