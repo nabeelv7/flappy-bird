@@ -111,7 +111,7 @@ scene("game", () => {
     }, 2000);
 
     // set Gravity
-    setGravity(1700)
+    setGravity(1350)
 
     if (isTouchscreen()) {
         onClick(() => bird.jump());
