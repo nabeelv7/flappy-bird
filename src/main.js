@@ -124,7 +124,7 @@ scene("game", () => {
         }
     })
 
-    bird.onCollide("pipe", () => setTimeout(() => go("start"), 50))
+    bird.onCollide("pipe", go("start"))
     bird.onCollide("score-box", () => {
         score++;
         if (score > highscore) {
