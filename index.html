@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Flappy Bird</title>
-<link rel="icon" href="favicon.png" type="image/png">
+    <title>Flappy Bird</title>
+    <link rel="icon" href="favicon.png" type="image/png">
 </head>
+
 <body style="overflow: hidden;">
-<script src="src/main.js" type="module"></script>
+    <audio id="gameAudio" src="game-music.mp3" autoplay style="display: none;"></audio>
+    <script src="src/main.js" type="module"></script>
+
+    <script>
+        const audio = document.getElementById('gameAudio');
+
+        function playAudio() {
+            if (audio.paused) {
+                audio.play().catch(error => console.error("Audio play failed:", error));
+            }
+        }
+
+        window.onclick = playAudio;
+        window.onkeydown = (event) => {
+            if (event.code === "Space") {
+                playAudio();
+            }
+        };
+    </script>
 </body>
+
 </html>

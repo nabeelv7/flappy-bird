@@ -32,7 +32,23 @@ export function spawnPipes() {
         "pipe",
     ])
 
-    wait(rand(1.3, 2), () => spawnPipes())
+    wait(rand(1.5, 2.3), () => spawnPipes())
+}
+
+export function spawnBarriers() {
+    add([
+        rect(width(), 10),
+        pos(0, -150),
+        area(),
+        "barrier"
+    ])
+
+    add([
+        rect(width(), 10),
+        pos(0, height + 140),
+        area(),
+        "barrier"
+    ])
 }
 
 export function moveBG() {

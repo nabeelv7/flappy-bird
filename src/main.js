@@ -1,7 +1,7 @@
 import kaplay from "kaplay";
 import "kaplay/global";
 import loadAllSprites from "./sprites";
-import { moveBG, spawnPipes } from "./platform";
+import { moveBG, spawnPipes, spawnBarriers } from "./platform";
 
 
 kaplay({
@@ -94,6 +94,7 @@ scene("start", () => {
 scene("game", () => {
     score = 0;
     moveBG();
+    spawnBarriers();
 
     const bird = add([
         sprite("bird", { frame: 0, anim: "flight" }),
@@ -104,6 +105,8 @@ scene("game", () => {
         scale(7),
         rotate(-20)
     ])
+
+    bird.onCollide("barrier", () => go("start"));
 
     let scoreText = add([
         text(score, { size: 100 }),
@@ -131,7 +134,7 @@ scene("game", () => {
         }
     })
 
-    bird.onCollide("pipe", () => go("start"))
+    bird.onCollide("pipe", () => setTimeout(() => go("start"), 50))
     bird.onCollide("score-box", () => {
         score++;
         if (score > highscore) {
