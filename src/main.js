@@ -53,7 +53,7 @@ scene("start", () => {
         pos(width() / 2, height() - 110),
         anchor("center"),
         z(10),
-        color(0, 0, 0),
+        color(93, 93, 189),
     ])
 
     // Unlock audio playback on first user interaction
