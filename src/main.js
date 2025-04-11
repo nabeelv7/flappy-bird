@@ -60,11 +60,6 @@ scene("start", () => {
         onClick(() => {
             // Start audio context after user click/tap, but only if music is not playing
             if (!musicPlaying) {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioContext.state === 'suspended') {
-                    audioContext.resume(); // Resume AudioContext to allow autoplay
-                }
-
                 musicPlaying = true; // Set flag to true to prevent starting the music again
                 go("game");
                 play("bg-music", { loop: true }); // Start music
@@ -76,11 +71,6 @@ scene("start", () => {
         onKeyPress("space", () => {
             // Start audio context after key press, but only if music is not playing
             if (!musicPlaying) {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                if (audioContext.state === 'suspended') {
-                    audioContext.resume(); // Resume AudioContext to allow autoplay
-                }
-
                 musicPlaying = true; // Set flag to true to prevent starting the music again
                 go("game");
                 play("bg-music", { loop: true }); // Start music
@@ -120,7 +110,7 @@ scene("game", () => {
     }, 2000);
 
     // set Gravity
-    setGravity(1200)
+    setGravity(1700)
 
     if (isTouchscreen()) {
         onClick(() => bird.jump());
